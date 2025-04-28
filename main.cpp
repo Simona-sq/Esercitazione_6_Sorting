@@ -45,24 +45,24 @@ int main(int argc, char *argv[]) //Posso dare degli input al programma quando la
     {
         istringstream convert(argv[1]);
         convert >> default_value;
-        cout << "Uso il valore: "  << default_value << endl; //m è uguale al primo argomento inserito (dopo l'eseguibile)
+        cout << "Uso il valore: "  << default_value << endl; //default_value è uguale al primo argomento inserito (dopo l'eseguibile)
     }
     else
         cerr << "Uso il valore di default: "  << default_value << endl; //non non inserisco argomenti uso il valore di default (10)
 
-    vector<int> v1(default_value); //crea v1 di dimensione m
-    std::iota(v1.begin(), v1.end(), -4); //l'ultimo argomento è il valore di partenza: il vettore v1 avrà m numeri consecutivi a partire da -4
+    vector<int> v1(default_value); //crea v1 di dimensione default_value
+    std::iota(v1.begin(), v1.end(), -4); //l'ultimo argomento è il valore di partenza: il vettore v1 avrà default_value numeri consecutivi a partire da -4
     
     //cout << "v1: " << ArrayToString(v1) << endl;
 
     srand(2); //inizializza il generatore random con seme fisso
-    vector<double> v2(default_value); //inizializza il vettore di dimensione m
+    vector<double> v2(default_value); //inizializza il vettore di dimensione default_value
     for(size_t i = 0; i < default_value; i++)
         v2[i] = rand() / ((double)RAND_MAX); //ottengo un numero tra 0 e 1
 
     //cout << "v2: " << ArrayToString(v2) << endl;
 
-    vector<int> v3(default_value, 0); //inizializza il vettore di m zeri
+    vector<int> v3(default_value, 0); //inizializza il vettore di default_value zeri
     for(size_t i = floor(default_value * 0.5) + 1; i < default_value; i++) //riempie la seconda metà del vettore con numeri casuali tra 0 e 999
         v3[i] = rand() % 1000;
 
