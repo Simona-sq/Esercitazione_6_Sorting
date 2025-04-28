@@ -4,9 +4,7 @@
 #include <vector>
 #include <queue>
 
-
 namespace SortLibrary { 
-
 
 template<typename T>
 concept Sortable = requires(T& t) {
@@ -17,57 +15,60 @@ template<Sortable T>
 void BubbleSort(std::vector<T>& v)
 {
     const unsigned int n = v.size();
-
     for(unsigned int i = 0; i < n - 1; i++)
     {
         for(unsigned int j = i+1 ; j < n; j++)
         {
             if(v[j] < v[i])
             {
-                T tmp = v[i];
-                v[i] = v[j];
-                v[j] = tmp;
+                std::swap(v[j], v[i]);
             }
 
         }
     }
 }
 
-template<typename T>
-void heap_enqueue(std::vector<T>& heap, T value)
-{
-    heap.push_back(value); // inserisci alla fine
-    int i = heap.size() - 1;
+/* 
+    Ora implemento le operazioni di enqueue e dequeue:
+    - heap_enqueue: inserisce un nuovo valore nell’heap mantenendo la proprietà di heap.
+    - heap_dequeue: estrae il valore massimo (la radice) dall’heap, mantenendo la proprietà di heap.
+*/
 
-    // Bubble up
+template<Sortable T>
+void heap_enqueue(std::vector<T>& heap, T value) //heap iff coda con priorità
+{
+    heap.push_back(value); // inserisci il valore alla fine
+    int i = heap.size() - 1; //i: indice dell'elemento appena inserito
+
+    //Riordino in modo da avere la struttura di heap
     while (i > 0)
     {
-        int parent = (i - 1) / 2;
-        if (heap[parent] < heap[i])
+        int padre = (i - 1) / 2;
+        if (heap[padre] < heap[i])
         {
-            std::swap(heap[parent], heap[i]);
-            i = parent;
+            std::swap(heap[padre], heap[i]);
+            i = padre;
         }
         else
             break;
     }
 }
 
-template<typename T>
+template<Sortable T>
 T heap_dequeue(std::vector<T>& heap)
 {
     if (heap.empty())
-        throw std::runtime_error("Heap vuoto!");
+        throw std::runtime_error("L'heap è vuoto!");
 
     T maxValue = heap[0];
 
-    heap[0] = heap.back();
-    heap.pop_back();
+    heap[0] = heap.back(); //Sostituisce la radice (heap[0]) con l’ultimo elemento.
+    heap.pop_back(); //Rimuove l'ultimo elemento (la radice spostata prima)
 
     int i = 0;
     int n = heap.size();
 
-    // Bubble down
+    //Sistemo la struttura di heap
     while (true)
     {
         int left = 2*i + 1;
@@ -91,7 +92,9 @@ T heap_dequeue(std::vector<T>& heap)
     return maxValue;
 }
 
-template<typename T>
+
+//L'heapsort utilizza heap_enqueue(..) e heap_dequeue(..)
+template<Sortable T>
 void HeapSort(std::vector<T>& v)
 {
     std::vector<T> heap;
