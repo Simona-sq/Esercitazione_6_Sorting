@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) //Posso dare degli input al programma quando la
     //cout << "v1: " << ArrayToString(v1) << endl;
 
     srand(2); //inizializza il generatore random con seme fisso
-    vector<double> v2(default_value); //inizializza il vettore di dimensione default_value
+    vector<double> v2(default_value); //inizializza il vettore di dimensione default_values
     for(size_t i = 0; i < default_value; i++)
         v2[i] = rand() / ((double)RAND_MAX); //ottengo un numero tra 0 e 1
 
